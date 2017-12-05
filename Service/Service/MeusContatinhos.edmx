@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MeusContatinhosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agenda">
+          <Key>
+            <PropertyRef Name="AgendaID" />
+          </Key>
+          <Property Name="AgendaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" />
+          <Property Name="UsuarioCriadorID" Type="int" />
+          <Property Name="DataCadastro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AgendaUsuario">
+          <Key>
+            <PropertyRef Name="AgendaUsuarioID" />
+          </Key>
+          <Property Name="AgendaUsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgendaID" Type="int" />
+          <Property Name="UsuarioID" Type="int" />
+          <Property Name="DataCadastro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Foto">
+          <Key>
+            <PropertyRef Name="FotoID" />
+          </Key>
+          <Property Name="FotoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" />
+          <Property Name="Caminho" Type="varchar(max)" />
+          <Property Name="DataCadastro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" />
+          <Property Name="Idade" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Descricao" Type="varchar" MaxLength="300" />
+          <Property Name="DataCadastro" Type="datetime" />
+          <Property Name="facebookid" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__AgendaUsu__Agend__1DE57479">
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="0..1" />
+          <End Role="AgendaUsuario" Type="Self.AgendaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agenda">
+              <PropertyRef Name="AgendaID" />
+            </Principal>
+            <Dependent Role="AgendaUsuario">
+              <PropertyRef Name="AgendaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgendaUsu__Usuar__1ED998B2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="AgendaUsuario" Type="Self.AgendaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="AgendaUsuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Foto__UsuarioID__21B6055D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Foto" Type="Self.Foto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Foto">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MeusContatinhosModelStoreContainer">
+          <EntitySet Name="Agenda" EntityType="Self.Agenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgendaUsuario" EntityType="Self.AgendaUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foto" EntityType="Self.Foto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AgendaUsu__Agend__1DE57479" Association="Self.FK__AgendaUsu__Agend__1DE57479">
+            <End Role="Agenda" EntitySet="Agenda" />
+            <End Role="AgendaUsuario" EntitySet="AgendaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgendaUsu__Usuar__1ED998B2" Association="Self.FK__AgendaUsu__Usuar__1ED998B2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AgendaUsuario" EntitySet="AgendaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Foto__UsuarioID__21B6055D" Association="Self.FK__Foto__UsuarioID__21B6055D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Foto" EntitySet="Foto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MeusContatinhosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agenda">
+          <Key>
+            <PropertyRef Name="AgendaID" />
+          </Key>
+          <Property Name="AgendaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCriadorID" Type="Int32" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AgendaUsuario" Relationship="Self.FK__AgendaUsu__Agend__1DE57479" FromRole="Agenda" ToRole="AgendaUsuario" />
+        </EntityType>
+        <EntityType Name="AgendaUsuario">
+          <Key>
+            <PropertyRef Name="AgendaUsuarioID" />
+          </Key>
+          <Property Name="AgendaUsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgendaID" Type="Int32" />
+          <Property Name="UsuarioID" Type="Int32" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Agenda" Relationship="Self.FK__AgendaUsu__Agend__1DE57479" FromRole="AgendaUsuario" ToRole="Agenda" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__AgendaUsu__Usuar__1ED998B2" FromRole="AgendaUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Foto">
+          <Key>
+            <PropertyRef Name="FotoID" />
+          </Key>
+          <Property Name="FotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioID" Type="Int32" />
+          <Property Name="Caminho" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Foto__UsuarioID__21B6055D" FromRole="Foto" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Idade" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AgendaUsuario" Relationship="Self.FK__AgendaUsu__Usuar__1ED998B2" FromRole="Usuario" ToRole="AgendaUsuario" />
+          <NavigationProperty Name="Foto" Relationship="Self.FK__Foto__UsuarioID__21B6055D" FromRole="Usuario" ToRole="Foto" />
+          <Property Name="facebookid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__AgendaUsu__Agend__1DE57479">
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="0..1" />
+          <End Role="AgendaUsuario" Type="Self.AgendaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agenda">
+              <PropertyRef Name="AgendaID" />
+            </Principal>
+            <Dependent Role="AgendaUsuario">
+              <PropertyRef Name="AgendaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgendaUsu__Usuar__1ED998B2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="AgendaUsuario" Type="Self.AgendaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="AgendaUsuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Foto__UsuarioID__21B6055D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Foto" Type="Self.Foto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Foto">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MeusContatinhosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agenda" EntityType="Self.Agenda" />
+          <EntitySet Name="AgendaUsuario" EntityType="Self.AgendaUsuario" />
+          <EntitySet Name="Foto" EntityType="Self.Foto" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__AgendaUsu__Agend__1DE57479" Association="Self.FK__AgendaUsu__Agend__1DE57479">
+            <End Role="Agenda" EntitySet="Agenda" />
+            <End Role="AgendaUsuario" EntitySet="AgendaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgendaUsu__Usuar__1ED998B2" Association="Self.FK__AgendaUsu__Usuar__1ED998B2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AgendaUsuario" EntitySet="AgendaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Foto__UsuarioID__21B6055D" Association="Self.FK__Foto__UsuarioID__21B6055D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Foto" EntitySet="Foto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MeusContatinhosModelStoreContainer" CdmEntityContainer="MeusContatinhosEntities">
+          <EntitySetMapping Name="Agenda">
+            <EntityTypeMapping TypeName="MeusContatinhosModel.Agenda">
+              <MappingFragment StoreEntitySet="Agenda">
+                <ScalarProperty Name="AgendaID" ColumnName="AgendaID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="UsuarioCriadorID" ColumnName="UsuarioCriadorID" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgendaUsuario">
+            <EntityTypeMapping TypeName="MeusContatinhosModel.AgendaUsuario">
+              <MappingFragment StoreEntitySet="AgendaUsuario">
+                <ScalarProperty Name="AgendaUsuarioID" ColumnName="AgendaUsuarioID" />
+                <ScalarProperty Name="AgendaID" ColumnName="AgendaID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foto">
+            <EntityTypeMapping TypeName="MeusContatinhosModel.Foto">
+              <MappingFragment StoreEntitySet="Foto">
+                <ScalarProperty Name="FotoID" ColumnName="FotoID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Caminho" ColumnName="Caminho" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="MeusContatinhosModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="facebookid" ColumnName="facebookid" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Idade" ColumnName="Idade" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
