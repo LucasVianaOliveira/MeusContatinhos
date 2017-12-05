@@ -104,7 +104,26 @@ namespace Service.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, x.Message);
             }
         }
+        [AcceptVerbs("GET")]
+        [Route("usuario/{usuarioID}")]
+        public HttpResponseMessage UsuarioPorFacebookID(string facebookid)
+        {
+            try
+            {
+                var db = new MeusContatinhosEntities();
 
+                var usuario = db.Usuario.Where(x => x.facebookid == facebookid).ToList();
+
+                if (usuario == null) throw new Exception("Cliente não encontrado");
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+            }
+            catch (Exception x)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, x.Message);
+            }
+        }
         [AcceptVerbs("GET")]
         [Route("usuario")]
         public List<Usuario> ConsultarUsuarios()
