@@ -37,6 +37,7 @@
     <Property Name="Email" Type="varchar" MaxLength="255" />
     <Property Name="Descricao" Type="varchar" MaxLength="300" />
     <Property Name="DataCadastro" Type="datetime" />
+    <Property Name="facebookid" Type="varchar(max)" />
   </EntityType>
   <Association Name="FK__AgendaUsu__Agend__1DE57479">
     <End Role="Agenda" Type="Self.Agenda" Multiplicity="0..1" />

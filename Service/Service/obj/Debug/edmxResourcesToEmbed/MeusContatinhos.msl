@@ -34,6 +34,7 @@
     <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="MeusContatinhosModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="facebookid" ColumnName="facebookid" />
           <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
           <ScalarProperty Name="Nome" ColumnName="Nome" />
           <ScalarProperty Name="Idade" ColumnName="Idade" />

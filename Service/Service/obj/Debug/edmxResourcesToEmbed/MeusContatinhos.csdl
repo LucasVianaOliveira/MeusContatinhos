@@ -43,6 +43,7 @@
     <Property Name="DataCadastro" Type="DateTime" Precision="3" />
     <NavigationProperty Name="AgendaUsuario" Relationship="Self.FK__AgendaUsu__Usuar__1ED998B2" FromRole="Usuario" ToRole="AgendaUsuario" />
     <NavigationProperty Name="Foto" Relationship="Self.FK__Foto__UsuarioID__21B6055D" FromRole="Usuario" ToRole="Foto" />
+    <Property Name="facebookid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK__AgendaUsu__Agend__1DE57479">
     <End Role="Agenda" Type="Self.Agenda" Multiplicity="0..1" />

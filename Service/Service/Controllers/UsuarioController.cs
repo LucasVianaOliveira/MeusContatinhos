@@ -4,6 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft;
+using System.Web.Http.Results;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Service.Controllers
 {
@@ -25,6 +29,7 @@ namespace Service.Controllers
                 UsuarioNovo.Idade = usuario.Idade;
                 UsuarioNovo.Email = usuario.Email;
                 UsuarioNovo.Descricao = usuario.Descricao;
+                UsuarioNovo.facebookid = usuario.facebookid;
                 UsuarioNovo.DataCadastro = DateTime.Now;
 
                 db.Usuario.Add(UsuarioNovo);
@@ -87,7 +92,7 @@ namespace Service.Controllers
 
         [AcceptVerbs("GET")]
         [Route("usuario/{usuarioID}")]
-        public HttpResponseMessage ConsultarUsuarioPorCodigo(int usuarioID)
+        public string ConsultarUsuarioPorCodigo(int usuarioID)
         {
             try { 
             var db = new MeusContatinhosEntities();            
@@ -95,18 +100,18 @@ namespace Service.Controllers
             var usuario = db.Usuario.Where(x => x.UsuarioID == usuarioID).ToList();
 
              if (usuario == null) throw new Exception("Cliente não encontrado");
-            
 
-                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+                string json = JsonConvert.SerializeObject(usuario);
+                return json;
             }
             catch (Exception x)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, x.Message);
+                return x.Message;
             }
         }
         [AcceptVerbs("GET")]
-        [Route("usuario/{usuarioID}")]
-        public HttpResponseMessage UsuarioPorFacebookID(string facebookid)
+        [Route("usuario/login/{facebookid}")]
+        public string UsuarioPorFacebookID(string facebookid)
         {
             try
             {
@@ -116,12 +121,17 @@ namespace Service.Controllers
 
                 if (usuario == null) throw new Exception("Cliente não encontrado");
 
+                //var jsonResult = JsonConvert.SerializeObject(usuario);
+                //return Request.CreateResponse(HttpStatusCode.OK, usuario);                
+                string json = JsonConvert.SerializeObject(usuario);
+                
 
-                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+                return json;
             }
             catch (Exception x)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, x.Message);
+                //return Request.CreateResponse(HttpStatusCode.BadRequest, x.Message);
+                return JsonConvert.SerializeObject(x.Message);
             }
         }
         [AcceptVerbs("GET")]
