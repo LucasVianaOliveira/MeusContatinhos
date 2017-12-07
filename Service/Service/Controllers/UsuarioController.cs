@@ -119,14 +119,16 @@ namespace Service.Controllers
 
                 var usuario = db.Usuario.Where(x => x.facebookid == facebookid).ToList();
 
-                if (usuario == null) throw new Exception("Cliente não encontrado");
-
-                //var jsonResult = JsonConvert.SerializeObject(usuario);
-                //return Request.CreateResponse(HttpStatusCode.OK, usuario);                
-                string json = JsonConvert.SerializeObject(usuario);
-                
-
-                return json;
+                if (usuario == null) {
+                    string json = "false";  //throw new Exception("Cliente não encontrado");
+                    return json;
+                }
+                else
+                {
+                    string json = JsonConvert.SerializeObject(usuario);
+                    return json;
+                }                        
+                                
             }
             catch (Exception x)
             {
